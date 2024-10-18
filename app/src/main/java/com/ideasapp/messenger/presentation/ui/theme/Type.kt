@@ -1,4 +1,4 @@
-package com.ideasapp.messenger.ui.theme
+package com.ideasapp.messenger.presentation.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

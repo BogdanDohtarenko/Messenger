@@ -1,4 +1,4 @@
-package com.ideasapp.messenger
+package com.ideasapp.messenger.presentation.ui.screens
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview

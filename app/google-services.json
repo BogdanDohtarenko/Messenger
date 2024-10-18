@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "480975003467",
+    "project_id": "simplemessenger-958f9",
+    "storage_bucket": "simplemessenger-958f9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:480975003467:android:6adaf7a83277a48e4c92ce",
+        "android_client_info": {
+          "package_name": "com.ideasapp.messenger.presentation.ui.screens"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBm5dQdsN56HWZTI-NSeIX_Fnutf6GF-c4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
