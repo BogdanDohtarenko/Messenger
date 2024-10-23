@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Messenger</string>
+    <string name="sign_up_image_description">Men with bags</string>
+    <string name="sign_up">Sign up</string>
 </resources>

@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:480975003467:android:6adaf7a83277a48e4c92ce",
         "android_client_info": {
-          "package_name": "com.ideasapp.messenger.presentation.ui.screens"
+          "package_name": "com.ideasapp.messenger"
         }
       },
       "oauth_client": [],
