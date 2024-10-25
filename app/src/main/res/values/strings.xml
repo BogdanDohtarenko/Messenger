@@ -2,8 +2,14 @@
     <string name="app_name">Messenger</string>
 
     <string name="sign_up_image_description">Men with bags</string>
+    <string name="arrow_image_description">Arrow back</string>
     <string name="email_image_description">Mail envelope</string>
+    <string name="username_image_description">Person</string>
+    <string name="password_image_description">Lock</string>
 
     <string name="sign_up">Sign up</string>
     <string name="enter_email">Enter email</string>
+    <string name="enter_username">Enter username</string>
+    <string name="enter_password">Enter password</string>
+    <string name="continue_button">Continue</string>
 </resources>

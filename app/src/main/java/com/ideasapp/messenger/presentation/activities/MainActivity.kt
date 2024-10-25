@@ -24,10 +24,21 @@ class MainActivity : ComponentActivity() {
         setContent {
             MessengerTheme {
                 val emailState = signUpViewModel.email.observeAsState("")
+                val usernameState = signUpViewModel.username.observeAsState("")
+                val passwordState = signUpViewModel.password.observeAsState("")
                 SignUpScreen(
                     emailState.value,
-                    onValueChange = { email -> signUpViewModel.onEmailChange(email) }
-                ).also { Log.d("MainActivity", signUpViewModel.email.value.toString()) }
+                    usernameState.value,
+                    passwordState.value,
+                    onEmailChange = { email -> signUpViewModel.onEmailChange(email) },
+                    onUsernameChange = { username -> signUpViewModel.onUsernameChange(username) },
+                    onPasswordChange = { password -> signUpViewModel.onPasswordChange(password) },
+                    onButtonClick = {Log.d("MainActivity", "button clicked")}
+                ).also {
+                    Log.d("MainActivity", signUpViewModel.email.value.toString())
+                    Log.d("MainActivity", signUpViewModel.username.value.toString())
+                    Log.d("MainActivity", signUpViewModel.password.value.toString())
+                }
             }
         }
 
