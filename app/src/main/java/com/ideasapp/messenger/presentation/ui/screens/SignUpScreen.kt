@@ -10,10 +10,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,7 +22,6 @@ import com.ideasapp.messenger.presentation.ui.elements.startScreens.EmailField
 import com.ideasapp.messenger.presentation.ui.elements.startScreens.HeaderText
 import com.ideasapp.messenger.presentation.ui.elements.startScreens.PasswordField
 import com.ideasapp.messenger.presentation.ui.elements.startScreens.UsernameField
-import com.ideasapp.messenger.presentation.viewModel.SignUpViewModel
 
 
 @Composable

@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class SignUpViewModel: ViewModel() {
+class SignUpLoginViewModel: ViewModel() {
     private var _email = MutableLiveData("")
     val email: LiveData<String> = _email
     private var _username = MutableLiveData("")

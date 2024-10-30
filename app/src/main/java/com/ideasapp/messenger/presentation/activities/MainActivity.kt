@@ -5,43 +5,52 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.ideasapp.messenger.presentation.ui.screens.Login
 import com.ideasapp.messenger.presentation.ui.screens.SignUpScreen
 import com.ideasapp.messenger.presentation.ui.theme.MessengerTheme
-import com.ideasapp.messenger.presentation.viewModel.SignUpViewModel
+import com.ideasapp.messenger.presentation.viewModel.SignUpLoginViewModel
 
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        val signUpViewModel: SignUpViewModel = ViewModelProvider(this)[SignUpViewModel::class.java]
+        val signUpLoginViewModel: SignUpLoginViewModel = ViewModelProvider(this)[SignUpLoginViewModel::class.java]
+
         setContent {
             MessengerTheme {
-                val emailState = signUpViewModel.email.observeAsState("")
-                val usernameState = signUpViewModel.username.observeAsState("")
-                val passwordState = signUpViewModel.password.observeAsState("")
+                val emailState = signUpLoginViewModel.email.observeAsState("")
+                val usernameState = signUpLoginViewModel.username.observeAsState("")
+                val passwordState = signUpLoginViewModel.password.observeAsState("")
                 SignUpScreen(
                     emailState.value,
                     usernameState.value,
                     passwordState.value,
-                    onEmailChange = { email -> signUpViewModel.onEmailChange(email) },
-                    onUsernameChange = { username -> signUpViewModel.onUsernameChange(username) },
-                    onPasswordChange = { password -> signUpViewModel.onPasswordChange(password) },
+                    onEmailChange = { email -> signUpLoginViewModel.onEmailChange(email) },
+                    onUsernameChange = { username -> signUpLoginViewModel.onUsernameChange(username) },
+                    onPasswordChange = { password -> signUpLoginViewModel.onPasswordChange(password) },
                     onBackButtonClick = {Log.d("MainActivity", "back button clicked")},
                     onContinueButtonClick = {Log.d("MainActivity", "save button clicked")}
                 ).also {
-                    Log.d("MainActivity", signUpViewModel.email.value.toString())
-                    Log.d("MainActivity", signUpViewModel.username.value.toString())
-                    Log.d("MainActivity", signUpViewModel.password.value.toString())
+                    Log.d("MainActivity", signUpLoginViewModel.email.value.toString())
+                    Log.d("MainActivity", signUpLoginViewModel.username.value.toString())
+                    Log.d("MainActivity", signUpLoginViewModel.password.value.toString())
+                }
+                Login(
+                    emailState.value,
+                    passwordState.value,
+                    onEmailChange = { email -> signUpLoginViewModel.onEmailChange(email) },
+                    onPasswordChange = { password -> signUpLoginViewModel.onPasswordChange(password) },
+                    onContinueButtonClick = {Log.d("MainActivity", "save button clicked")}
+                ).also {
+                    Log.d("MainActivity", signUpLoginViewModel.email.value.toString())
+                    Log.d("MainActivity", signUpLoginViewModel.password.value.toString())
                 }
             }
         }
+
 
     }
 }
