@@ -35,7 +35,7 @@ fun Login(
         Image(
             painter = painterResource(id = R.drawable.login_image) ,
             contentDescription = stringResource(id = R.string.login_image_description) ,
-            modifier = Modifier.padding(start = 0.dp, end = 28.dp, top = 60.dp)
+            modifier = Modifier.padding(start = 40.dp, end = 28.dp, top = 60.dp)
         )
         HeaderText(stringResource(id = R.string.login))
         EmailField(email, onEmailChange)
@@ -43,12 +43,22 @@ fun Login(
         Button(
             onClick = { onContinueButtonClick() },
             modifier = Modifier
-                .padding(top = 60.dp)
+                .padding(top = 40.dp)
                 .width(228.dp)
                 .height(64.dp)
                 .align(Alignment.CenterHorizontally)
         ) {
             Text(stringResource(id = R.string.continue_button))
+        }
+        Row (
+            modifier = Modifier
+                .padding(top = 40.dp, start = 100.dp)
+        ) {
+            Text(stringResource(id = R.string.is_new_user))
+            Text(stringResource(id = R.string.sign_up),
+                modifier = Modifier
+                .padding(start = 10.dp)
+            )
         }
     }
 }

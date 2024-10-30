@@ -24,20 +24,20 @@ class MainActivity : ComponentActivity() {
                 val emailState = signUpLoginViewModel.email.observeAsState("")
                 val usernameState = signUpLoginViewModel.username.observeAsState("")
                 val passwordState = signUpLoginViewModel.password.observeAsState("")
-                SignUpScreen(
-                    emailState.value,
-                    usernameState.value,
-                    passwordState.value,
-                    onEmailChange = { email -> signUpLoginViewModel.onEmailChange(email) },
-                    onUsernameChange = { username -> signUpLoginViewModel.onUsernameChange(username) },
-                    onPasswordChange = { password -> signUpLoginViewModel.onPasswordChange(password) },
-                    onBackButtonClick = {Log.d("MainActivity", "back button clicked")},
-                    onContinueButtonClick = {Log.d("MainActivity", "save button clicked")}
-                ).also {
-                    Log.d("MainActivity", signUpLoginViewModel.email.value.toString())
-                    Log.d("MainActivity", signUpLoginViewModel.username.value.toString())
-                    Log.d("MainActivity", signUpLoginViewModel.password.value.toString())
-                }
+//                SignUpScreen(
+//                    emailState.value,
+//                    usernameState.value,
+//                    passwordState.value,
+//                    onEmailChange = { email -> signUpLoginViewModel.onEmailChange(email) },
+//                    onUsernameChange = { username -> signUpLoginViewModel.onUsernameChange(username) },
+//                    onPasswordChange = { password -> signUpLoginViewModel.onPasswordChange(password) },
+//                    onBackButtonClick = {Log.d("MainActivity", "back button clicked")},
+//                    onContinueButtonClick = {Log.d("MainActivity", "save button clicked")}
+//                ).also {
+//                    Log.d("MainActivity", signUpLoginViewModel.email.value.toString())
+//                    Log.d("MainActivity", signUpLoginViewModel.username.value.toString())
+//                    Log.d("MainActivity", signUpLoginViewModel.password.value.toString())
+//                }
                 Login(
                     emailState.value,
                     passwordState.value,
