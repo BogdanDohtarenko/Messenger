@@ -33,7 +33,8 @@ class MainActivity : ComponentActivity() {
                     onEmailChange = { email -> signUpViewModel.onEmailChange(email) },
                     onUsernameChange = { username -> signUpViewModel.onUsernameChange(username) },
                     onPasswordChange = { password -> signUpViewModel.onPasswordChange(password) },
-                    onButtonClick = {Log.d("MainActivity", "button clicked")}
+                    onBackButtonClick = {Log.d("MainActivity", "back button clicked")},
+                    onContinueButtonClick = {Log.d("MainActivity", "save button clicked")}
                 ).also {
                     Log.d("MainActivity", signUpViewModel.email.value.toString())
                     Log.d("MainActivity", signUpViewModel.username.value.toString())
