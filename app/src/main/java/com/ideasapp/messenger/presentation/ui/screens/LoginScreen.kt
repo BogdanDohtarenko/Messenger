@@ -1,6 +1,8 @@
 package com.ideasapp.messenger.presentation.ui.screens
 
+import android.util.Log
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -24,18 +26,19 @@ import com.ideasapp.messenger.presentation.ui.elements.startScreens.PasswordFiel
 import com.ideasapp.messenger.presentation.ui.elements.startScreens.UsernameField
 
 @Composable
-fun Login(
+fun LoginScreen(
     email: String,
     password: String,
     onEmailChange: (String) -> Unit,
     onPasswordChange: (String) -> Unit,
-    onContinueButtonClick: () -> Unit
+    onContinueButtonClick: () -> Unit,
+    onSignUpTextClick: () -> Unit
 ) {
     Column {
         Image(
             painter = painterResource(id = R.drawable.login_image) ,
             contentDescription = stringResource(id = R.string.login_image_description) ,
-            modifier = Modifier.padding(start = 0.dp, end = 28.dp, top = 60.dp)
+            modifier = Modifier.padding(start = 40.dp, end = 28.dp, top = 60.dp)
         )
         HeaderText(stringResource(id = R.string.login))
         EmailField(email, onEmailChange)
@@ -43,12 +46,25 @@ fun Login(
         Button(
             onClick = { onContinueButtonClick() },
             modifier = Modifier
-                .padding(top = 60.dp)
+                .padding(top = 40.dp)
                 .width(228.dp)
                 .height(64.dp)
                 .align(Alignment.CenterHorizontally)
         ) {
             Text(stringResource(id = R.string.continue_button))
+        }
+        Row (
+            modifier = Modifier
+                .padding(top = 40.dp, start = 100.dp)
+        ) {
+            Text(stringResource(id = R.string.is_new_user))
+            Text(
+                stringResource(id = R.string.sign_up),
+                color = Color.Blue,
+                modifier = Modifier
+                .padding(start = 10.dp)
+                .clickable { onSignUpTextClick() }
+            )
         }
     }
 }
