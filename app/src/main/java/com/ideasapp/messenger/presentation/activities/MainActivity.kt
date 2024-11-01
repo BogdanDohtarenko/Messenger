@@ -7,7 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.lifecycle.ViewModelProvider
-import com.ideasapp.messenger.presentation.ui.screens.Login
+import com.ideasapp.messenger.presentation.ui.screens.LoginScreen
 import com.ideasapp.messenger.presentation.ui.screens.SignUpScreen
 import com.ideasapp.messenger.presentation.ui.theme.MessengerTheme
 import com.ideasapp.messenger.presentation.viewModel.SignUpLoginViewModel
@@ -38,12 +38,13 @@ class MainActivity : ComponentActivity() {
 //                    Log.d("MainActivity", signUpLoginViewModel.username.value.toString())
 //                    Log.d("MainActivity", signUpLoginViewModel.password.value.toString())
 //                }
-                Login(
+                LoginScreen(
                     emailState.value,
                     passwordState.value,
                     onEmailChange = { email -> signUpLoginViewModel.onEmailChange(email) },
                     onPasswordChange = { password -> signUpLoginViewModel.onPasswordChange(password) },
-                    onContinueButtonClick = {Log.d("MainActivity", "save button clicked")}
+                    onContinueButtonClick = {Log.d("MainActivity", "save button clicked")},
+                    onSignUpTextClick = {Log.d("MainActivity", "sign up clicked")}
                 ).also {
                     Log.d("MainActivity", signUpLoginViewModel.email.value.toString())
                     Log.d("MainActivity", signUpLoginViewModel.password.value.toString())

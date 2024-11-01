@@ -1,6 +1,8 @@
 package com.ideasapp.messenger.presentation.ui.screens
 
+import android.util.Log
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -24,12 +26,13 @@ import com.ideasapp.messenger.presentation.ui.elements.startScreens.PasswordFiel
 import com.ideasapp.messenger.presentation.ui.elements.startScreens.UsernameField
 
 @Composable
-fun Login(
+fun LoginScreen(
     email: String,
     password: String,
     onEmailChange: (String) -> Unit,
     onPasswordChange: (String) -> Unit,
-    onContinueButtonClick: () -> Unit
+    onContinueButtonClick: () -> Unit,
+    onSignUpTextClick: () -> Unit
 ) {
     Column {
         Image(
@@ -55,9 +58,12 @@ fun Login(
                 .padding(top = 40.dp, start = 100.dp)
         ) {
             Text(stringResource(id = R.string.is_new_user))
-            Text(stringResource(id = R.string.sign_up),
+            Text(
+                stringResource(id = R.string.sign_up),
+                color = Color.Blue,
                 modifier = Modifier
                 .padding(start = 10.dp)
+                .clickable { onSignUpTextClick() }
             )
         }
     }
