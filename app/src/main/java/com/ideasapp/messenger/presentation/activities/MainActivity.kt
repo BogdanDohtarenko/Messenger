@@ -20,26 +20,29 @@ class MainActivity : ComponentActivity() {
         val signUpLoginViewModel: SignUpLoginViewModel = ViewModelProvider(this)[SignUpLoginViewModel::class.java]
 
         setContent {
+            //TODO watch videos
             MessengerTheme {
                 val emailState = signUpLoginViewModel.email.observeAsState("")
                 val usernameState = signUpLoginViewModel.username.observeAsState("")
                 val passwordState = signUpLoginViewModel.password.observeAsState("")
-
                 StartScreen(
-                    emailState.value ,
-                    usernameState.value ,
-                    passwordState.value ,
-                    onEmailChange = { email -> signUpLoginViewModel.onEmailChange(email) } ,
-                    onUsernameChange = { username -> signUpLoginViewModel.onUsernameChange(username) } ,
-                    onPasswordChange = { password -> signUpLoginViewModel.onPasswordChange(password) } ,
-                    onContinueButtonClick = { Log.d("MainActivity" , "save button clicked") } ,
+                    emailState.value,
+                    usernameState.value,
+                    passwordState.value,
+                    onEmailChange = {email -> signUpLoginViewModel.onEmailChange(email)},
+                    onUsernameChange = {username -> signUpLoginViewModel.onUsernameChange(username)},
+                    onPasswordChange = { password -> signUpLoginViewModel.onPasswordChange(password)},
+                    onContinueButtonClick = {Log.d("MainActivity" , "save button clicked")},
+                    //TODO amend onContinue
                 ).also {
                     Log.d("MainActivity" , signUpLoginViewModel.email.value.toString())
                     Log.d("MainActivity" , signUpLoginViewModel.username.value.toString())
                     Log.d("MainActivity" , signUpLoginViewModel.password.value.toString())
-                }
+                } //debug
             }
         }
     }
+
+    //TODO make method that lead us to new activity after registration
 
 }

@@ -23,4 +23,10 @@ class SignUpLoginViewModel: ViewModel() {
     }
 
 
+    //TODO #1 make method that find errors in input text fields
+    //TODO #2 make method that parse user information after save
+    //TODO #3 make sign up in firebase method
+    //TODO #3 make login in firebase method
+
+
 }

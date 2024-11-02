@@ -5,9 +5,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.ideasapp.messenger.presentation.ui.AppRoute
 
-private const val SIGN_UP_SCREEN = "sign_up"
-private const val LOGIN_SCREEN = "login"
 
 @Composable
 fun StartScreen(
@@ -22,8 +21,9 @@ fun StartScreen(
 
     val navController = rememberNavController()
 
-    NavHost(navController, startDestination = "login") {
-        composable("login") {
+    NavHost(navController, startDestination = AppRoute.Screen.Login.route) {
+
+        composable( AppRoute.Screen.Login.route) {
             LoginScreen(
                 email = email,
                 password = password,
@@ -32,11 +32,12 @@ fun StartScreen(
                 onContinueButtonClick = onContinueButtonClick,
                 onSignUpTextClick = {
                     Log.d("MainActivity", "sign up clicked")
-                    navController.navigate("signup")
+                    navController.navigate(AppRoute.Screen.SignUp.route)
                 }
             )
         }
-        composable("signup") {
+
+        composable(AppRoute.Screen.SignUp.route) {
             SignUpScreen(
                 email = email,
                 username = username,
