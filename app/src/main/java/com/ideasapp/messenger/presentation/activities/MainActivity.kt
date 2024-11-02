@@ -7,8 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.lifecycle.ViewModelProvider
-import com.ideasapp.messenger.presentation.ui.screens.LoginScreen
-import com.ideasapp.messenger.presentation.ui.screens.SignUpScreen
+import com.ideasapp.messenger.presentation.ui.screens.StartScreen
 import com.ideasapp.messenger.presentation.ui.theme.MessengerTheme
 import com.ideasapp.messenger.presentation.viewModel.SignUpLoginViewModel
 
@@ -17,41 +16,33 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
         val signUpLoginViewModel: SignUpLoginViewModel = ViewModelProvider(this)[SignUpLoginViewModel::class.java]
 
         setContent {
+            //TODO watch videos
             MessengerTheme {
                 val emailState = signUpLoginViewModel.email.observeAsState("")
                 val usernameState = signUpLoginViewModel.username.observeAsState("")
                 val passwordState = signUpLoginViewModel.password.observeAsState("")
-//                SignUpScreen(
-//                    emailState.value,
-//                    usernameState.value,
-//                    passwordState.value,
-//                    onEmailChange = { email -> signUpLoginViewModel.onEmailChange(email) },
-//                    onUsernameChange = { username -> signUpLoginViewModel.onUsernameChange(username) },
-//                    onPasswordChange = { password -> signUpLoginViewModel.onPasswordChange(password) },
-//                    onBackButtonClick = {Log.d("MainActivity", "back button clicked")},
-//                    onContinueButtonClick = {Log.d("MainActivity", "save button clicked")}
-//                ).also {
-//                    Log.d("MainActivity", signUpLoginViewModel.email.value.toString())
-//                    Log.d("MainActivity", signUpLoginViewModel.username.value.toString())
-//                    Log.d("MainActivity", signUpLoginViewModel.password.value.toString())
-//                }
-                LoginScreen(
+                StartScreen(
                     emailState.value,
+                    usernameState.value,
                     passwordState.value,
-                    onEmailChange = { email -> signUpLoginViewModel.onEmailChange(email) },
-                    onPasswordChange = { password -> signUpLoginViewModel.onPasswordChange(password) },
-                    onContinueButtonClick = {Log.d("MainActivity", "save button clicked")},
-                    onSignUpTextClick = {Log.d("MainActivity", "sign up clicked")}
+                    onEmailChange = {email -> signUpLoginViewModel.onEmailChange(email)},
+                    onUsernameChange = {username -> signUpLoginViewModel.onUsernameChange(username)},
+                    onPasswordChange = { password -> signUpLoginViewModel.onPasswordChange(password)},
+                    onContinueButtonClick = {Log.d("MainActivity" , "save button clicked")},
+                    //TODO amend onContinue
                 ).also {
-                    Log.d("MainActivity", signUpLoginViewModel.email.value.toString())
-                    Log.d("MainActivity", signUpLoginViewModel.password.value.toString())
-                }
+                    Log.d("MainActivity" , signUpLoginViewModel.email.value.toString())
+                    Log.d("MainActivity" , signUpLoginViewModel.username.value.toString())
+                    Log.d("MainActivity" , signUpLoginViewModel.password.value.toString())
+                } //debug
             }
         }
-
-
     }
+
+    //TODO make method that lead us to new activity after registration
+
 }
