@@ -1,5 +1,6 @@
 package com.ideasapp.messenger.presentation.viewModel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -26,6 +27,55 @@ class SignUpLoginViewModel: ViewModel() {
     val errorPassword: LiveData<Boolean>
         get() = _errorPassword
 
+    //override methods
+    private fun validateInput(email: String, password: String): Boolean {
+        var result = true
+        if (email.isBlank()) {
+            _errorEmail.value = true
+            result = false
+        }
+        else if (password.isBlank()) {
+            _errorPassword.value = true
+            result = false
+        }
+        return result
+    }
+    private fun validateInput(email: String, username: String, password: String): Boolean {
+        var result = true
+        if (email.isBlank()) {
+            _errorEmail.value = true
+            result = false
+        }
+        else if (username.isBlank()) {
+            _errorUsername.value = true
+            result = false
+        }
+        else if (password.isBlank()) {
+            _errorPassword.value = true
+            result = false
+        }
+        return result
+    }
+
+    fun loginUser(email: String?, password: String?) {
+        val parsedEmail = email?.trim() ?: ""
+        val parsedPassword = password?.trim() ?: ""
+        val validateInput = validateInput(parsedEmail, parsedPassword)
+        if (validateInput) {
+            Log.d("LoginViewModel", "Validate input == true ")
+        }
+    }
+
+    fun signUpUser(email: String?, username: String?, password: String?) {
+        val parsedEmail = email?.trim() ?: ""
+        val parsedUsername = username?.trim() ?: ""
+        val parsedPassword = password?.trim() ?: ""
+        val validateInput = validateInput(parsedEmail, parsedUsername, parsedPassword)
+        if (validateInput) {
+            Log.d("SignUpViewModel", "Validate input == true ")
+        }
+    }
+
     fun onEmailChange(newEmail: String) {
         _email.value = newEmail
     }
@@ -34,10 +84,6 @@ class SignUpLoginViewModel: ViewModel() {
     }
     fun onPasswordChange(newEmail: String) {
         _password.value = newEmail
-    }
-
-    fun parseInputData() {
-
     }
 
     fun resetEmailError() {
@@ -50,8 +96,8 @@ class SignUpLoginViewModel: ViewModel() {
         _errorPassword.value = false
     }
 
-    //TODO #1 make method that find errors in input text fields //in process
-    //TODO #2 make method that parse user information after save
+    //#1 make method that find errors in input text fields //done
+    //#2 make method that parse user information after save //done
     //TODO #3 make sign up in firebase method
     //TODO #3 make login in firebase method
 

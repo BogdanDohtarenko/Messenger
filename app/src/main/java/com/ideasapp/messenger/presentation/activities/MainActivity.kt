@@ -49,7 +49,8 @@ class MainActivity : ComponentActivity() {
                     },
                     onContinueButtonClick = {
                         Log.d("MainActivity" , "save button clicked")
-                        signUpLoginViewModel.parseInputData()
+                        //TODO handle all errors (we need to implement login and signUp user here)
+                        //TODO and handle errors
                     },
                     //TODO amend onContinue
                 ).also {
