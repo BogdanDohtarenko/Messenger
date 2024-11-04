@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import com.ideasapp.messenger.R
 
 @Composable
-fun UsernameField(username: String, onValueChange: (String) -> Unit) {
+fun UsernameField(username: String, isError: Boolean, onValueChange: (String) -> Unit) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceEvenly,
@@ -35,6 +35,7 @@ fun UsernameField(username: String, onValueChange: (String) -> Unit) {
         )
         TextField(
             value = username,
+            isError = isError,
             onValueChange = { username ->
                 onValueChange(username)
             },

@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.dp
 import com.ideasapp.messenger.R
 
 @Composable
-fun PasswordField(password: String, onValueChange: (String) -> Unit) {
+fun PasswordField(password: String, isError: Boolean, onValueChange: (String) -> Unit) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceEvenly,
@@ -40,6 +40,7 @@ fun PasswordField(password: String, onValueChange: (String) -> Unit) {
         )
         TextField(
             value = password,
+            isError = isError,
             onValueChange = { password ->
                 onValueChange(password)
             },

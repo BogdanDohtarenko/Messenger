@@ -25,14 +25,32 @@ class MainActivity : ComponentActivity() {
                 val emailState = signUpLoginViewModel.email.observeAsState("")
                 val usernameState = signUpLoginViewModel.username.observeAsState("")
                 val passwordState = signUpLoginViewModel.password.observeAsState("")
+                val errorEmailState = signUpLoginViewModel.errorEmail.observeAsState(false)
+                val errorUsernameState = signUpLoginViewModel.errorUsername.observeAsState(false)
+                val errorPasswordState = signUpLoginViewModel.errorPassword.observeAsState(false)
                 StartScreen(
                     emailState.value,
                     usernameState.value,
                     passwordState.value,
-                    onEmailChange = {email -> signUpLoginViewModel.onEmailChange(email)},
-                    onUsernameChange = {username -> signUpLoginViewModel.onUsernameChange(username)},
-                    onPasswordChange = { password -> signUpLoginViewModel.onPasswordChange(password)},
-                    onContinueButtonClick = {Log.d("MainActivity" , "save button clicked")},
+                    errorEmailState.value,
+                    errorUsernameState.value,
+                    errorPasswordState.value,
+                    onEmailChange = { email ->
+                        signUpLoginViewModel.resetEmailError()
+                        signUpLoginViewModel.onEmailChange(email)
+                    },
+                    onUsernameChange = { username ->
+                        signUpLoginViewModel.resetUsernameError()
+                        signUpLoginViewModel.onUsernameChange(username)
+                    },
+                    onPasswordChange = { password ->
+                        signUpLoginViewModel.resetPasswordError()
+                        signUpLoginViewModel.onPasswordChange(password)
+                    },
+                    onContinueButtonClick = {
+                        Log.d("MainActivity" , "save button clicked")
+                        signUpLoginViewModel.parseInputData()
+                    },
                     //TODO amend onContinue
                 ).also {
                     Log.d("MainActivity" , signUpLoginViewModel.email.value.toString())
