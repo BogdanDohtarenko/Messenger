@@ -19,7 +19,8 @@ fun StartScreen(
     onEmailChange: (String) -> Unit,
     onUsernameChange: (String) -> Unit,
     onPasswordChange: (String) -> Unit,
-    onContinueButtonClick: () -> Unit,
+    onContinueLoginButtonClick: () -> Unit,
+    onContinueSignUpButtonClick: () -> Unit
 ) {
 
     val navController = rememberNavController()
@@ -34,7 +35,7 @@ fun StartScreen(
                 isErrorInPassword = isErrorInPassword,
                 onEmailChange = onEmailChange,
                 onPasswordChange = onPasswordChange,
-                onContinueButtonClick = onContinueButtonClick,
+                onContinueButtonClick = onContinueLoginButtonClick,
                 onSignUpTextClick = {
                     Log.d("MainActivity", "sign up clicked")
                     navController.navigate(AppRoute.Screen.SignUp.route)
@@ -57,7 +58,7 @@ fun StartScreen(
                     Log.d("MainActivity", "back button clicked")
                     navController.popBackStack()
                 },
-                onContinueButtonClick = onContinueButtonClick
+                onContinueButtonClick = onContinueSignUpButtonClick
             )
         }
     }
