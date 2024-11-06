@@ -77,6 +77,7 @@ class StartActivity : ComponentActivity() {
         if (isValidate) {
             val intent = MessengerActivity.newIntent(this , 1) //example
             startActivity(intent)
+            finish()
         }
     }
 
@@ -88,6 +89,7 @@ class StartActivity : ComponentActivity() {
         if (isValidate) {
             val intent = MessengerActivity.newIntent(this , 1) //example
             startActivity(intent)
+            finish()
         }
     }
 

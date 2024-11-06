@@ -51,7 +51,7 @@ class SignUpLoginViewModel: ViewModel() {
     //TODO more sophisticated way to validate passwords
     private fun validateInput(email: String, username: String, password: String): Boolean {
         var result = true
-        if (email.isBlank()) {
+        if (email.isBlank()  || !email.contains("@")) {
             _errorEmail.value = true
             result = false
         }
@@ -59,7 +59,7 @@ class SignUpLoginViewModel: ViewModel() {
             _errorUsername.value = true
             result = false
         }
-        else if (password.isBlank()) {
+        else if (password.isBlank() || password.length < 4) {
             _errorPassword.value = true
             result = false
         }
