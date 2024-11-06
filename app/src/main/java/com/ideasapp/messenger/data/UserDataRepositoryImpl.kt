@@ -5,7 +5,7 @@ import com.ideasapp.messenger.domain.UserDataRepository
 
 object UserDataRepositoryImpl: UserDataRepository {
     override fun login() {
-        Log.d("Data layer", "login")
+        Log.d("Data layer", "login") //TODO ADD REALIZATION
     }
 
     override fun signUp() {

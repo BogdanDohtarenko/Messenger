@@ -5,6 +5,8 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.lifecycle.ViewModelProvider
 import com.ideasapp.messenger.presentation.ui.screens.StartScreen
@@ -13,12 +15,11 @@ import com.ideasapp.messenger.presentation.viewModel.SignUpLoginViewModel
 
 
 class StartActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-
         val viewModel: SignUpLoginViewModel = ViewModelProvider(this)[SignUpLoginViewModel::class.java]
-
+        enableEdgeToEdge()
         setContent {
             //TODO watch videos
             MessengerTheme {
@@ -49,11 +50,11 @@ class StartActivity : ComponentActivity() {
                     },
                     onContinueLoginButtonClick = {
                         Log.d("MainActivity" , "save button clicked")
-                        viewModel.login(emailState.value, passwordState.value)
+                        loginWithRedirection(viewModel, emailState, passwordState)
                     },
                     onContinueSignUpButtonClick = {
                         Log.d("MainActivity" , "save button clicked")
-                        viewModel.signUp(emailState.value, usernameState.value, passwordState.value)
+                        signUpWithRedirection(viewModel, emailState , usernameState , passwordState)
                     }
                 ).also {
                     Log.d("MainActivity" , viewModel.email.value.toString())
@@ -61,6 +62,32 @@ class StartActivity : ComponentActivity() {
                     Log.d("MainActivity" , viewModel.password.value.toString())
                 } //debug
             }
+        }
+    }
+
+    private fun signUpWithRedirection(
+        viewModel: SignUpLoginViewModel,
+        emailState: State<String> ,
+        usernameState: State<String> ,
+        passwordState: State<String>
+    ) {
+        val isValidate =
+            viewModel.signUp(emailState.value , usernameState.value , passwordState.value)
+        if (isValidate) {
+            val intent = MessengerActivity.newIntent(this , 1) //example
+            startActivity(intent)
+        }
+    }
+
+    private fun loginWithRedirection(
+        viewModel: SignUpLoginViewModel,
+        emailState: State<String> ,
+        passwordState: State<String>
+    ) {
+        val isValidate = viewModel.login(emailState.value , passwordState.value)
+        if (isValidate) {
+            val intent = MessengerActivity.newIntent(this , 1) //example
+            startActivity(intent)
         }
     }
 

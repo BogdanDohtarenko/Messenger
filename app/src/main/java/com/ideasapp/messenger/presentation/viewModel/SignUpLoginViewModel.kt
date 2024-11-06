@@ -1,5 +1,6 @@
 package com.ideasapp.messenger.presentation.viewModel
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -47,6 +48,7 @@ class SignUpLoginViewModel: ViewModel() {
         }
         return result
     }
+    //TODO more sophisticated way to validate passwords
     private fun validateInput(email: String, username: String, password: String): Boolean {
         var result = true
         if (email.isBlank()) {
@@ -64,7 +66,7 @@ class SignUpLoginViewModel: ViewModel() {
         return result
     }
 
-    fun login(email: String?, password: String?) {
+    fun login(email: String?, password: String?): Boolean {
         val parsedEmail = email?.trim() ?: ""
         val parsedPassword = password?.trim() ?: ""
         val validateInput = validateInput(parsedEmail, parsedPassword)
@@ -72,9 +74,10 @@ class SignUpLoginViewModel: ViewModel() {
             Log.d("LoginViewModel", "Validate input == true ")
             loginUseCase.loginUseCase()
         }
+        return validateInput
     }
 
-    fun signUp(email: String?, username: String?, password: String?) {
+    fun signUp(email: String?, username: String?, password: String?): Boolean {
         val parsedEmail = email?.trim() ?: ""
         val parsedUsername = username?.trim() ?: ""
         val parsedPassword = password?.trim() ?: ""
@@ -83,6 +86,7 @@ class SignUpLoginViewModel: ViewModel() {
             Log.d("SignUpViewModel", "Validate input == true ")
             signUpUseCase.signUpUseCase()
         }
+        return validateInput
     }
 
     fun onEmailChange(newEmail: String) {
