@@ -1,6 +1,5 @@
 package com.ideasapp.messenger.presentation.viewModel
 
-import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -69,10 +68,10 @@ class SignUpLoginViewModel: ViewModel() {
     fun login(email: String?, password: String?): Boolean {
         val parsedEmail = email?.trim() ?: ""
         val parsedPassword = password?.trim() ?: ""
-        val validateInput = validateInput(parsedEmail, parsedPassword)
+        var validateInput = validateInput(parsedEmail, parsedPassword)
         if (validateInput) {
             Log.d("LoginViewModel", "Validate input == true ")
-            loginUseCase.loginUseCase()
+            validateInput = loginUseCase.loginUseCase(parsedEmail, parsedPassword)
         }
         return validateInput
     }
@@ -84,7 +83,7 @@ class SignUpLoginViewModel: ViewModel() {
         val validateInput = validateInput(parsedEmail, parsedUsername, parsedPassword)
         if (validateInput) {
             Log.d("SignUpViewModel", "Validate input == true ")
-            signUpUseCase.signUpUseCase()
+            signUpUseCase.signUpUseCase(parsedEmail, parsedUsername, parsedPassword)
         }
         return validateInput
     }

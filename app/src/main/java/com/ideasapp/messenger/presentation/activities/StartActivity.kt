@@ -2,6 +2,7 @@ package com.ideasapp.messenger.presentation.activities
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -9,6 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
 import com.ideasapp.messenger.presentation.ui.screens.StartScreen
 import com.ideasapp.messenger.presentation.ui.theme.MessengerTheme
 import com.ideasapp.messenger.presentation.viewModel.SignUpLoginViewModel
@@ -75,9 +78,16 @@ class StartActivity : ComponentActivity() {
         val isValidate =
             viewModel.signUp(emailState.value , usernameState.value , passwordState.value)
         if (isValidate) {
-            val intent = MessengerActivity.newIntent(this , 1) //example
+            val intent = MessengerActivity.newIntent(
+                this,
+                FirebaseAuth
+                    .getInstance()
+                    .currentUser?.uid?.toInt() ?: MessengerActivity.UNDEFINED_ID
+            ) //example
             startActivity(intent)
             finish()
+        }else {
+            Toast.makeText(this, "invalid", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -85,11 +95,18 @@ class StartActivity : ComponentActivity() {
         emailState: State<String> ,
         passwordState: State<String>
     ) {
-        val isValidate = viewModel.login(emailState.value , passwordState.value)
+        val isValidate =
+            viewModel.login(emailState.value , passwordState.value)
         if (isValidate) {
-            val intent = MessengerActivity.newIntent(this , 1) //example
+            val intent = MessengerActivity.newIntent(
+                this,
+                FirebaseAuth
+                .getInstance()
+                .currentUser?.uid?.toInt() ?: MessengerActivity.UNDEFINED_ID) //example
             startActivity(intent)
             finish()
+        } else {
+            Toast.makeText(this, "invalid", Toast.LENGTH_SHORT).show()
         }
     }
 

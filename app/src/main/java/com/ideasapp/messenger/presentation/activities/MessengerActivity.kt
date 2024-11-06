@@ -25,8 +25,8 @@ class MessengerActivity: ComponentActivity() {
     //TODO add parseIntent method
 
     companion object {
-        private const val EXTRA_USER_ID = "user_id"
-        private const val UNDEFINED_ID = -1
+        const val EXTRA_USER_ID = "user_id"
+        const val UNDEFINED_ID = -1
 
         fun newIntent(context: Context, userId: Int): Intent {
             val intent = Intent(context, MessengerActivity::class.java)
