@@ -16,9 +16,11 @@ import com.ideasapp.messenger.presentation.viewModel.SignUpLoginViewModel
 
 class StartActivity : ComponentActivity() {
 
+    private lateinit var viewModel: SignUpLoginViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val viewModel: SignUpLoginViewModel = ViewModelProvider(this)[SignUpLoginViewModel::class.java]
+        viewModel = ViewModelProvider(this)[SignUpLoginViewModel::class.java]
         enableEdgeToEdge()
         setContent {
             //TODO watch videos
@@ -50,11 +52,11 @@ class StartActivity : ComponentActivity() {
                     },
                     onContinueLoginButtonClick = {
                         Log.d("MainActivity" , "save button clicked")
-                        loginWithRedirection(viewModel, emailState, passwordState)
+                        loginWithRedirection(emailState, passwordState)
                     },
                     onContinueSignUpButtonClick = {
                         Log.d("MainActivity" , "save button clicked")
-                        signUpWithRedirection(viewModel, emailState , usernameState , passwordState)
+                        signUpWithRedirection(emailState , usernameState , passwordState)
                     }
                 ).also {
                     Log.d("MainActivity" , viewModel.email.value.toString())
@@ -66,7 +68,6 @@ class StartActivity : ComponentActivity() {
     }
 
     private fun signUpWithRedirection(
-        viewModel: SignUpLoginViewModel,
         emailState: State<String> ,
         usernameState: State<String> ,
         passwordState: State<String>
@@ -80,7 +81,6 @@ class StartActivity : ComponentActivity() {
     }
 
     private fun loginWithRedirection(
-        viewModel: SignUpLoginViewModel,
         emailState: State<String> ,
         passwordState: State<String>
     ) {
