@@ -47,7 +47,7 @@ class SignUpLoginViewModel: ViewModel() {
         }
         return result
     }
-    //TODO more sophisticated way to validate passwords
+
     private fun validateInput(email: String, username: String, password: String): Boolean {
         var result = true
         if (email.isBlank()  || !email.contains("@")) {
@@ -58,7 +58,7 @@ class SignUpLoginViewModel: ViewModel() {
             _errorUsername.value = true
             result = false
         }
-        else if (password.isBlank() || password.length < 4) {
+        else if (password.isBlank() || password.length < 6) {
             _errorPassword.value = true
             result = false
         }
@@ -68,12 +68,15 @@ class SignUpLoginViewModel: ViewModel() {
     fun login(email: String?, password: String?): Boolean {
         val parsedEmail = email?.trim() ?: ""
         val parsedPassword = password?.trim() ?: ""
-        var validateInput = validateInput(parsedEmail, parsedPassword)
+        val validateInput = validateInput(parsedEmail, parsedPassword)
+
         if (validateInput) {
-            Log.d("LoginViewModel", "Validate input == true ")
-            validateInput = loginUseCase.loginUseCase(parsedEmail, parsedPassword)
+            Log.d("SignIn", "input valid")
+            return loginUseCase.login(parsedEmail, parsedPassword)
+        } else {
+            Log.d("SignIn", "Input validation failed")
         }
-        return validateInput
+        return false
     }
 
     fun signUp(email: String?, username: String?, password: String?): Boolean {
@@ -81,11 +84,14 @@ class SignUpLoginViewModel: ViewModel() {
         val parsedUsername = username?.trim() ?: ""
         val parsedPassword = password?.trim() ?: ""
         val validateInput = validateInput(parsedEmail, parsedUsername, parsedPassword)
+
         if (validateInput) {
-            Log.d("SignUpViewModel", "Validate input == true ")
-            signUpUseCase.signUpUseCase(parsedEmail, parsedUsername, parsedPassword)
+            Log.d("SignUp", "input valid")
+            return signUpUseCase.signUp(parsedEmail, parsedUsername, parsedPassword)
+        } else {
+            Log.d("SignUp", "Input validation failed")
         }
-        return validateInput
+        return false
     }
 
     fun onEmailChange(newEmail: String) {

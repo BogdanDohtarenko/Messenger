@@ -12,9 +12,11 @@ import com.ideasapp.messenger.presentation.ui.theme.MessengerTheme
 
 class MessengerActivity: ComponentActivity() {
 
+    private lateinit var userId: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val userId = intent.getIntExtra(EXTRA_USER_ID, UNDEFINED_ID)
+        parseIntent()
         setContent {
             MessengerTheme {
                 ChatItem(userId)
@@ -22,13 +24,16 @@ class MessengerActivity: ComponentActivity() {
         }
     }
 
-    //TODO add parseIntent method
+    private fun parseIntent() {
+        val unparsedId = intent.getStringExtra(EXTRA_USER_ID)
+        userId = unparsedId ?: UNDEFINED_ID
+    }
 
     companion object {
         const val EXTRA_USER_ID = "user_id"
-        const val UNDEFINED_ID = -1
+        const val UNDEFINED_ID = "Undefined"
 
-        fun newIntent(context: Context, userId: Int): Intent {
+        fun newIntent(context: Context, userId: String): Intent {
             val intent = Intent(context, MessengerActivity::class.java)
             intent.putExtra(EXTRA_USER_ID, userId)
             return intent

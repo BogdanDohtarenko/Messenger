@@ -26,7 +26,7 @@ class StartActivity : ComponentActivity() {
         viewModel = ViewModelProvider(this)[SignUpLoginViewModel::class.java]
         enableEdgeToEdge()
         setContent {
-            //TODO watch videos
+            //TODO check Sumin plans
             MessengerTheme {
                 val emailState = viewModel.email.observeAsState("")
                 val usernameState = viewModel.username.observeAsState("")
@@ -59,7 +59,7 @@ class StartActivity : ComponentActivity() {
                     },
                     onContinueSignUpButtonClick = {
                         Log.d("MainActivity" , "save button clicked")
-                        signUpWithRedirection(emailState , usernameState , passwordState)
+                        signUpWithRedirection(emailState , usernameState , passwordState) //TODO падает с намбер формат ексепшион
                     }
                 ).also {
                     Log.d("MainActivity" , viewModel.email.value.toString())
@@ -71,23 +71,19 @@ class StartActivity : ComponentActivity() {
     }
 
     private fun signUpWithRedirection(
-        emailState: State<String> ,
-        usernameState: State<String> ,
+        emailState: State<String>,
+        usernameState: State<String>,
         passwordState: State<String>
     ) {
-        val isValidate =
-            viewModel.signUp(emailState.value , usernameState.value , passwordState.value)
-        if (isValidate) {
-            val intent = MessengerActivity.newIntent(
-                this,
-                FirebaseAuth
-                    .getInstance()
-                    .currentUser?.uid?.toInt() ?: MessengerActivity.UNDEFINED_ID
-            ) //example
+        val isSignUpSuccess =
+            viewModel.signUp(emailState.value, usernameState.value, passwordState.value)
+        if (isSignUpSuccess) {
+            val userId = FirebaseAuth.getInstance().currentUser?.uid ?: MessengerActivity.UNDEFINED_ID
+            val intent = MessengerActivity.newIntent(this , userId)
             startActivity(intent)
             finish()
-        }else {
-            Toast.makeText(this, "invalid", Toast.LENGTH_SHORT).show()
+        } else {
+            Log.d("SignUp", "sign up isn't success")
         }
     }
 
@@ -95,18 +91,15 @@ class StartActivity : ComponentActivity() {
         emailState: State<String> ,
         passwordState: State<String>
     ) {
-        val isValidate =
+        val isSignInSuccess =
             viewModel.login(emailState.value , passwordState.value)
-        if (isValidate) {
-            val intent = MessengerActivity.newIntent(
-                this,
-                FirebaseAuth
-                .getInstance()
-                .currentUser?.uid?.toInt() ?: MessengerActivity.UNDEFINED_ID) //example
+        if (isSignInSuccess) {
+            val userId = FirebaseAuth.getInstance().currentUser?.uid ?: MessengerActivity.UNDEFINED_ID
+            val intent = MessengerActivity.newIntent(this , userId)
             startActivity(intent)
             finish()
         } else {
-            Toast.makeText(this, "invalid", Toast.LENGTH_SHORT).show()
+            Log.d("SignIn", "sign in isn't success")
         }
     }
 
