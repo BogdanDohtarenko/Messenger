@@ -29,6 +29,8 @@ import com.ideasapp.messenger.presentation.ui.elements.startScreens.UsernameFiel
 fun LoginScreen(
     email: String,
     password: String,
+    isErrorInEmail: Boolean,
+    isErrorInPassword: Boolean,
     onEmailChange: (String) -> Unit,
     onPasswordChange: (String) -> Unit,
     onContinueButtonClick: () -> Unit,
@@ -41,8 +43,8 @@ fun LoginScreen(
             modifier = Modifier.padding(start = 40.dp, end = 28.dp, top = 60.dp)
         )
         HeaderText(stringResource(id = R.string.login))
-        EmailField(email, onEmailChange)
-        PasswordField(password, onPasswordChange)
+        EmailField(email, isErrorInEmail, onEmailChange)
+        PasswordField(password, isErrorInPassword, onPasswordChange)
         Button(
             onClick = { onContinueButtonClick() },
             modifier = Modifier

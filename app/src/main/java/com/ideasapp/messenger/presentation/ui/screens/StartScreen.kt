@@ -13,10 +13,14 @@ fun StartScreen(
     email: String,
     username: String,
     password: String,
+    isErrorInEmail: Boolean,
+    isErrorInUsername: Boolean,
+    isErrorInPassword: Boolean,
     onEmailChange: (String) -> Unit,
     onUsernameChange: (String) -> Unit,
     onPasswordChange: (String) -> Unit,
-    onContinueButtonClick: () -> Unit,
+    onContinueLoginButtonClick: () -> Unit,
+    onContinueSignUpButtonClick: () -> Unit
 ) {
 
     val navController = rememberNavController()
@@ -27,9 +31,11 @@ fun StartScreen(
             LoginScreen(
                 email = email,
                 password = password,
+                isErrorInEmail = isErrorInEmail,
+                isErrorInPassword = isErrorInPassword,
                 onEmailChange = onEmailChange,
                 onPasswordChange = onPasswordChange,
-                onContinueButtonClick = onContinueButtonClick,
+                onContinueButtonClick = onContinueLoginButtonClick,
                 onSignUpTextClick = {
                     Log.d("MainActivity", "sign up clicked")
                     navController.navigate(AppRoute.Screen.SignUp.route)
@@ -42,6 +48,9 @@ fun StartScreen(
                 email = email,
                 username = username,
                 password = password,
+                isErrorInEmail = isErrorInEmail,
+                isErrorInUsername = isErrorInUsername,
+                isErrorInPassword = isErrorInPassword,
                 onEmailChange = onEmailChange,
                 onUsernameChange = onUsernameChange,
                 onPasswordChange = onPasswordChange,
@@ -49,7 +58,7 @@ fun StartScreen(
                     Log.d("MainActivity", "back button clicked")
                     navController.popBackStack()
                 },
-                onContinueButtonClick = onContinueButtonClick
+                onContinueButtonClick = onContinueSignUpButtonClick
             )
         }
     }

@@ -29,6 +29,9 @@ fun SignUpScreen(
     email: String,
     username: String,
     password: String,
+    isErrorInEmail: Boolean,
+    isErrorInUsername: Boolean,
+    isErrorInPassword: Boolean,
     onEmailChange: (String) -> Unit,
     onUsernameChange: (String) -> Unit,
     onPasswordChange: (String) -> Unit,
@@ -59,9 +62,9 @@ fun SignUpScreen(
             )
         } //
         HeaderText(stringResource(id = R.string.sign_up))
-        EmailField(email, onEmailChange)
-        UsernameField(username, onUsernameChange)
-        PasswordField(password, onPasswordChange)
+        EmailField(email, isError = isErrorInEmail, onEmailChange)
+        UsernameField(username, isError = isErrorInUsername, onUsernameChange)
+        PasswordField(password, isError = isErrorInPassword, onPasswordChange)
         Button(
             onClick = { onContinueButtonClick() },
             modifier = Modifier

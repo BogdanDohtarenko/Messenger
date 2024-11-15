@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import com.ideasapp.messenger.R
 
 @Composable
-fun EmailField(email: String, onValueChange: (String) -> Unit) {
+fun EmailField(email: String, isError: Boolean, onValueChange: (String) -> Unit) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceEvenly,
@@ -36,6 +36,7 @@ fun EmailField(email: String, onValueChange: (String) -> Unit) {
         )
         TextField(
             value = email,
+            isError = isError,
             onValueChange = { email ->
                 onValueChange(email)
             },
