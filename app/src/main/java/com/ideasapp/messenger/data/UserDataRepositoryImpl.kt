@@ -13,11 +13,17 @@ private const val PATH = "users"
 
 object UserDataRepositoryImpl: UserDataRepository {
 
-    override fun login(email: String , password: String): Boolean {
-        var result: Boolean = false
+    override fun login(email: String, password: String): Boolean {
+        var result = true
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
-                result = task.isSuccessful
+                if (task.isSuccessful) {
+                    Log.d("SignIn", "SignIn successful")
+                }
+            }
+            .addOnFailureListener { exception ->
+                result = false
+                Log.e("SignIn", "Login failed: ${exception.message}")
             }
         return result
     }
@@ -30,6 +36,7 @@ object UserDataRepositoryImpl: UserDataRepository {
             return true
         } ?: Log.d("SignUp", "sign up failed")
         return false
+        //TODO add user to database
     }
 
 }

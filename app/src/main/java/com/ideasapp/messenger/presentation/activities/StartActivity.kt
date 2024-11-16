@@ -2,15 +2,12 @@ package com.ideasapp.messenger.presentation.activities
 
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.lifecycle.ViewModelProvider
-import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.ideasapp.messenger.presentation.ui.screens.StartScreen
 import com.ideasapp.messenger.presentation.ui.theme.MessengerTheme
@@ -93,6 +90,7 @@ class StartActivity : ComponentActivity() {
     ) {
         val isSignInSuccess =
             viewModel.login(emailState.value , passwordState.value)
+        Log.d("SignIn", "sign in is $isSignInSuccess")
         if (isSignInSuccess) {
             val userId = FirebaseAuth.getInstance().currentUser?.uid ?: MessengerActivity.UNDEFINED_ID
             val intent = MessengerActivity.newIntent(this , userId)
@@ -102,8 +100,6 @@ class StartActivity : ComponentActivity() {
             Log.d("SignIn", "sign in isn't success")
         }
     }
-
-    //TODO make method that lead us to new activity after registration
 
 }
 
