@@ -54,9 +54,10 @@ android {
 dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
+    implementation(libs.firebase.database)
 
     implementation(libs.androidx.runtime.livedata)
-    implementation("androidx.navigation:navigation-compose:2.4.0-alpha10")
+    implementation(libs.androidx.navigation.compose)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

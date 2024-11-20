@@ -8,6 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.State
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.ideasapp.messenger.presentation.ui.screens.StartScreen
 import com.ideasapp.messenger.presentation.ui.theme.MessengerTheme
@@ -20,6 +21,7 @@ class StartActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        FirebaseApp.initializeApp(this)
         viewModel = ViewModelProvider(this)[SignUpLoginViewModel::class.java]
         enableEdgeToEdge()
         setContent {
@@ -56,7 +58,7 @@ class StartActivity : ComponentActivity() {
                     },
                     onContinueSignUpButtonClick = {
                         Log.d("MainActivity" , "save button clicked")
-                        signUpWithRedirection(emailState , usernameState , passwordState) //TODO падает с намбер формат ексепшион
+                        signUpWithRedirection(emailState , usernameState , passwordState)
                     }
                 ).also {
                     Log.d("MainActivity" , viewModel.email.value.toString())

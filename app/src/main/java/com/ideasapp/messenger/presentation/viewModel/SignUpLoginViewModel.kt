@@ -5,14 +5,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ideasapp.messenger.data.UserDataRepositoryImpl
-import com.ideasapp.messenger.domain.LoginUseCase
-import com.ideasapp.messenger.domain.SignUpUseCase
+import com.ideasapp.messenger.domain.usecases.LoginUseCase
+import com.ideasapp.messenger.domain.usecases.SaveUserToDatabase
+import com.ideasapp.messenger.domain.usecases.SignUpUseCase
 
 class SignUpLoginViewModel: ViewModel() {
 
     private val userDataRepository = UserDataRepositoryImpl
     private val loginUseCase = LoginUseCase(userDataRepository)
     private val signUpUseCase = SignUpUseCase(userDataRepository)
+    private val saveUserToDatabase = SaveUserToDatabase(userDataRepository)
     //authentication live data
     private var _email = MutableLiveData("")
     val email: LiveData<String>
@@ -66,20 +68,23 @@ class SignUpLoginViewModel: ViewModel() {
     }
 
     fun login(email: String?, password: String?): Boolean {
+        var result = false
         val parsedEmail = email?.trim() ?: ""
         val parsedPassword = password?.trim() ?: ""
         val validateInput = validateInput(parsedEmail, parsedPassword)
 
         if (validateInput) {
             Log.d("SignIn", "input valid")
-            return loginUseCase.login(parsedEmail, parsedPassword)
+            loginUseCase.login(parsedEmail, parsedPassword) {success ->
+                result = success}
         } else {
             Log.d("SignIn", "Input validation failed")
         }
-        return false
+        return result
     }
 
     fun signUp(email: String?, username: String?, password: String?): Boolean {
+        var result = false
         val parsedEmail = email?.trim() ?: ""
         val parsedUsername = username?.trim() ?: ""
         val parsedPassword = password?.trim() ?: ""
@@ -87,11 +92,17 @@ class SignUpLoginViewModel: ViewModel() {
 
         if (validateInput) {
             Log.d("SignUp", "input valid")
-            return signUpUseCase.signUp(parsedEmail, parsedUsername, parsedPassword)
+            signUpUseCase.signUp(parsedEmail, parsedUsername, parsedPassword) {success ->
+                result = success
+            }
+            saveUserToDatabase.saveUserToDatabase(parsedEmail, parsedUsername, parsedPassword) {
+                success -> result = success
+            }
         } else {
             Log.d("SignUp", "Input validation failed")
+            result = false
         }
-        return false
+        return result
     }
 
     fun onEmailChange(newEmail: String) {
@@ -116,8 +127,9 @@ class SignUpLoginViewModel: ViewModel() {
 
     //#1 make method that find errors in input text fields //done
     //#2 make method that parse user information after save //done
-    //TODO #3 make sign up in firebase method
-    //TODO #3 make login in firebase method
+    //#3 make sign up in firebase method //done
+    //#4 make login in firebase method //done
+    //TODO #5 make insert in firebase database method
 
 
 }
