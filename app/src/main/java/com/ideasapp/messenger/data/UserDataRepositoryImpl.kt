@@ -4,6 +4,7 @@ import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.ideasapp.messenger.domain.entity.User
 import com.ideasapp.messenger.domain.repositories.UserDataRepository
@@ -58,35 +59,31 @@ object UserDataRepositoryImpl: UserDataRepository {
         password: String,
         callback: (Boolean) -> Unit
     ) {
-        Log.d("Database" , "Start")
+        Log.d("Database", "Start saving user to Firestore")
         val userId = authentication.currentUser?.uid ?: UNDEFINED_ID
-        val database = Firebase.database.reference
+        if (userId == UNDEFINED_ID) {
+            Log.e("Database", "User not authenticated. Cannot save to Firestore.")
+            callback(false)
+            return
+        }
 
-        val user = User(
-                email = email,
-                username = username,
-                password = password,
-                uid = userId // Get UID from Firebase Auth
+        val db = Firebase.firestore
+        val user = mapOf(
+                "email" to email,
+                "username" to username,
+                "uid" to userId
         )
 
-
-        Log.d("Database" , "After mapOf")
-
-        database.child(USER_PATH).child(userId).setValue(user)
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        Log.d("Database" , "User saved successfully")
-                        callback(true)
-                    }
-                    else {
-                        Log.e("Database" , "Failed to save user: ${task.exception?.localizedMessage}")
-                        callback(false)
-                    }
+        db.collection(USER_PATH)
+                .document(userId)
+                .set(user)
+                .addOnSuccessListener {
+                    Log.d("Database", "User successfully saved to Firestore")
+                    callback(true)
                 }
-                .addOnFailureListener { exception ->
-                    Log.e("Database" , "Error: ${exception.localizedMessage}")
+                .addOnFailureListener { e ->
+                    Log.e("Database", "Error saving user to Firestore: ${e.message}", e)
                     callback(false)
                 }
-        //debug просто проходит по complete и failure listeneraм не выполняя ни одно содержимое
     }
 }

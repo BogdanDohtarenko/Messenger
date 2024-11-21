@@ -25,7 +25,6 @@ class StartActivity : ComponentActivity() {
         viewModel = ViewModelProvider(this)[SignUpLoginViewModel::class.java]
         enableEdgeToEdge()
         setContent {
-            //TODO check Sumin plans
             MessengerTheme {
                 val emailState = viewModel.email.observeAsState("")
                 val usernameState = viewModel.username.observeAsState("")
@@ -74,15 +73,15 @@ class StartActivity : ComponentActivity() {
         usernameState: State<String>,
         passwordState: State<String>
     ) {
-        val isSignUpSuccess =
-            viewModel.signUp(emailState.value, usernameState.value, passwordState.value)
-        if (isSignUpSuccess) {
-            val userId = FirebaseAuth.getInstance().currentUser?.uid ?: MessengerActivity.UNDEFINED_ID
-            val intent = MessengerActivity.newIntent(this , userId)
-            startActivity(intent)
-            finish()
-        } else {
-            Log.d("SignUp", "sign up isn't success")
+        viewModel.signUp(emailState.value, usernameState.value, passwordState.value) { success ->
+            if (success) {
+                val userId = FirebaseAuth.getInstance().currentUser?.uid ?: MessengerActivity.UNDEFINED_ID
+                val intent = MessengerActivity.newIntent(this, userId)
+                startActivity(intent)
+                finish()
+            } else {
+                Log.d("SignUp", "Sign up isn't successful")
+            }
         }
     }
 

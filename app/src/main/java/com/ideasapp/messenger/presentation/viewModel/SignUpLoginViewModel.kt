@@ -83,26 +83,30 @@ class SignUpLoginViewModel: ViewModel() {
         return result
     }
 
-    fun signUp(email: String?, username: String?, password: String?): Boolean {
-        var result = false
+    fun signUp(email: String?, username: String?, password: String?, callback: (Boolean) -> Unit) {
         val parsedEmail = email?.trim() ?: ""
         val parsedUsername = username?.trim() ?: ""
         val parsedPassword = password?.trim() ?: ""
+
         val validateInput = validateInput(parsedEmail, parsedUsername, parsedPassword)
 
         if (validateInput) {
-            Log.d("SignUp", "input valid")
-            signUpUseCase.signUp(parsedEmail, parsedUsername, parsedPassword) {success ->
-                result = success
-            }
-            saveUserToDatabase.saveUserToDatabase(parsedEmail, parsedUsername, parsedPassword) {
-                success -> result = success
+            Log.d("SignUp", "Input valid")
+            signUpUseCase.signUp(parsedEmail, parsedUsername, parsedPassword) { isSuccess ->
+                if (isSuccess) {
+                    Log.d("MainActivity", "Sign-up successful")
+                    saveUserToDatabase.saveUserToDatabase(parsedEmail, parsedUsername, parsedPassword) {
+                        success -> callback(success)
+                    }
+                } else {
+                    Log.e("MainActivity", "Sign-up failed")
+                    callback(false)
+                }
             }
         } else {
             Log.d("SignUp", "Input validation failed")
-            result = false
+            callback(false)
         }
-        return result
     }
 
     fun onEmailChange(newEmail: String) {
@@ -129,7 +133,8 @@ class SignUpLoginViewModel: ViewModel() {
     //#2 make method that parse user information after save //done
     //#3 make sign up in firebase method //done
     //#4 make login in firebase method //done
-    //TODO #5 make insert in firebase database method
+    //#5 make insert in firebase database method //done
+    //TODO #6 make login async method
 
 
 }
