@@ -21,18 +21,20 @@ object UserDataRepositoryImpl: UserDataRepository {
     private val authentication = FirebaseAuth.getInstance()
 
     override fun login(email: String, password: String, callback: (Boolean) -> Unit)  {
-        var result = true
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Log.d("SignIn", "SignIn successful")
+                    callback(true)
+                } else {
+                    callback(false)
+                    Log.e("SignIn", "Login failed")
                 }
             }
             .addOnFailureListener { exception ->
-                result = false
                 Log.e("SignIn", "Login failed: ${exception.message}")
+                callback(false)
             }
-        callback(result)
     }
 
     override fun signUp(

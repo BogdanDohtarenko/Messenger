@@ -67,20 +67,28 @@ class SignUpLoginViewModel: ViewModel() {
         return result
     }
 
-    fun login(email: String?, password: String?): Boolean {
-        var result = false
+    fun login(email: String?, password: String?, callback: (Boolean) -> Unit) {
         val parsedEmail = email?.trim() ?: ""
         val parsedPassword = password?.trim() ?: ""
         val validateInput = validateInput(parsedEmail, parsedPassword)
 
-        if (validateInput) {
-            Log.d("SignIn", "input valid")
-            loginUseCase.login(parsedEmail, parsedPassword) {success ->
-                result = success}
+        if (validateInput)
+        {
+            Log.d("SignIn" , "input valid")
+            loginUseCase.login(parsedEmail , parsedPassword) { success ->
+                if (success) {
+                    Log.d("SignIn" , "Sign-up successful")
+                    callback(true)
+                }
+                else {
+                    Log.e("SignIn" , "Sign-up failed")
+                    callback(false)
+                }
+            }
         } else {
-            Log.d("SignIn", "Input validation failed")
+            Log.d("SignIn" , "Input validation failed")
+            callback(false)
         }
-        return result
     }
 
     fun signUp(email: String?, username: String?, password: String?, callback: (Boolean) -> Unit) {
@@ -94,12 +102,12 @@ class SignUpLoginViewModel: ViewModel() {
             Log.d("SignUp", "Input valid")
             signUpUseCase.signUp(parsedEmail, parsedUsername, parsedPassword) { isSuccess ->
                 if (isSuccess) {
-                    Log.d("MainActivity", "Sign-up successful")
+                    Log.d("SignUp", "Sign-up successful")
                     saveUserToDatabase.saveUserToDatabase(parsedEmail, parsedUsername, parsedPassword) {
                         success -> callback(success)
                     }
                 } else {
-                    Log.e("MainActivity", "Sign-up failed")
+                    Log.e("SignUp", "Sign-up failed")
                     callback(false)
                 }
             }

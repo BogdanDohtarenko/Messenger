@@ -89,16 +89,15 @@ class StartActivity : ComponentActivity() {
         emailState: State<String> ,
         passwordState: State<String>
     ) {
-        val isSignInSuccess =
-            viewModel.login(emailState.value , passwordState.value)
-        Log.d("SignIn", "sign in is $isSignInSuccess")
-        if (isSignInSuccess) {
-            val userId = FirebaseAuth.getInstance().currentUser?.uid ?: MessengerActivity.UNDEFINED_ID
-            val intent = MessengerActivity.newIntent(this , userId)
-            startActivity(intent)
-            finish()
-        } else {
-            Log.d("SignIn", "sign in isn't success")
+        viewModel.login(emailState.value, passwordState.value) { success ->
+            if (success) {
+                val userId = FirebaseAuth.getInstance().currentUser?.uid ?: MessengerActivity.UNDEFINED_ID
+                val intent = MessengerActivity.newIntent(this, userId)
+                startActivity(intent)
+                finish()
+            } else {
+                Log.d("SignUp", "Sign up isn't successful")
+            }
         }
     }
 
