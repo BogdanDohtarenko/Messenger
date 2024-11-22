@@ -7,6 +7,7 @@
     <string name="username_image_description">Person</string>
     <string name="password_image_description">Lock</string>
     <string name="login_image_description">Tablet</string>
+    <string name="chat_icon_image_description">Some chat</string>
 
     <string name="sign_up">Sign up</string>
     <string name="login">Login</string>

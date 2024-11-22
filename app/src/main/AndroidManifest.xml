@@ -19,12 +19,14 @@
             android:name=".presentation.activities.StartActivity"
             android:exported="true"
             android:theme="@style/Theme.Messenger">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
-        <activity android:name=".presentation.activities.MessengerActivity"/>
+        <activity android:name=".presentation.activities.MessengerActivity"
+            android:exported="true">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+    </activity>
     </application>
 
 </manifest>
