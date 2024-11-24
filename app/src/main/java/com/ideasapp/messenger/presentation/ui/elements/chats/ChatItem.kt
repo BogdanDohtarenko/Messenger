@@ -24,6 +24,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.DarkGray
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -35,10 +36,12 @@ fun ChatItem(id: String) {
             modifier = Modifier
                 .height(100.dp)
                 .fillMaxWidth()
-                .background(color = Color.LightGray)
-                .border(width = 5.dp,
-                    color = Color.White,
-                    shape = getBottomLineShape(5.dp))
+                .background(color = colorResource(id = R.color.light_brown))
+                .border(
+                    width = 5.dp,
+                    color = colorResource(id = R.color.maroon),
+                    shape = getBottomLineShape(5.dp)
+                )
         ) {
             Column  {
                 Row (modifier = Modifier

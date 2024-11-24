@@ -142,7 +142,7 @@ class SignUpLoginViewModel: ViewModel() {
     //#3 make sign up in firebase method //done
     //#4 make login in firebase method //done
     //#5 make insert in firebase database method //done
-    //TODO #6 make login async method
+    //#6 make login async method //done
 
 
 }
