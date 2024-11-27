@@ -29,6 +29,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.ideasapp.messenger.R
+import com.ideasapp.messenger.presentation.ui.elements.common.getBottomLineShape
 
 @Composable
 fun ChatItem(id: String) {
@@ -60,13 +61,3 @@ fun ChatItem(id: String) {
         }
 }
 
-@Composable
-private fun getBottomLineShape(lineThicknessDp: Dp) : Shape {
-    val lineThicknessPx = with(LocalDensity.current) {lineThicknessDp.toPx()}
-    return GenericShape { size, _ ->
-        moveTo(0f, size.height)
-        lineTo(size.width, size.height)
-        lineTo(size.width, size.height - lineThicknessPx)
-        lineTo(0f, size.height - lineThicknessPx)
-    }
-}

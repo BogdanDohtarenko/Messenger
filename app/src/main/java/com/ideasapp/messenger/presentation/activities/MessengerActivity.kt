@@ -4,10 +4,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import com.ideasapp.messenger.presentation.ui.elements.chats.ChatItem
+import com.ideasapp.messenger.presentation.ui.screens.ChatScreen
 import com.ideasapp.messenger.presentation.ui.screens.ChatsListScreen
 import com.ideasapp.messenger.presentation.ui.theme.MessengerTheme
 
@@ -22,7 +24,19 @@ class MessengerActivity: ComponentActivity() {
         parseIntent()
         setContent {
             MessengerTheme {
-                ChatsListScreen()
+                ChatScreen(
+                    onBackButtonClick = {
+                        Log.d("MessengerActivity", "back button clicked")
+                    },
+                    onValueChange = {
+                        Log.d("MessengerActivity", "message changes")
+                    },
+                    onSendButtonClick = {
+                        Log.d("MessengerActivity", "message send")
+                    },
+                    companionName= "Whore",
+                    messageToSend = "Enter Message"
+                )
             }
         }
     }
