@@ -8,15 +8,16 @@ import com.ideasapp.messenger.presentation.ui.elements.chats.SendMessageInputTex
 
 @Composable
 fun ChatScreen(
+    messageToSend: String,
+    messagesList: List<String>,
     onBackButtonClick: () -> Unit,
     onValueChange: (String) -> Unit,
     onSendButtonClick: () -> Unit,
     companionName: String,
-    messageToSend: String,
 ) {
     Column {
         AtticField(onBackButtonClick = onBackButtonClick, companionName = companionName)
-        MessagesField()
+        MessagesField(messagesList)
         SendMessageInputText(
             message = messageToSend,
             onValueChange = onValueChange,

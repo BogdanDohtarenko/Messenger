@@ -45,12 +45,8 @@ fun MessageInChat(text: String, companionName: String, username: String) {
                     modifier = Modifier
                         .padding(15.dp),
                 )
-                val isUser = Random.nextBoolean() //TODO adjust view messages logic
-                if (isUser) {
-                    Text(text = "$username: $text")
-                } else {
-                    Text(text = "$companionName: $text")
-                }
+                //TODO adjust name of sender logic
+                Text(text = "$username: $text")
             }
         }
     }
