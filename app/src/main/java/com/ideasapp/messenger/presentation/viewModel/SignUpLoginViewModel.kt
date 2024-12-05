@@ -136,13 +136,4 @@ class SignUpLoginViewModel: ViewModel() {
     fun resetPasswordError() {
         _errorPassword.value = false
     }
-
-    //#1 make method that find errors in input text fields //done
-    //#2 make method that parse user information after save //done
-    //#3 make sign up in firebase method //done
-    //#4 make login in firebase method //done
-    //#5 make insert in firebase database method //done
-    //TODO #6 make login async method
-
-
 }

@@ -7,12 +7,15 @@
     <string name="username_image_description">Person</string>
     <string name="password_image_description">Lock</string>
     <string name="login_image_description">Tablet</string>
+    <string name="chat_icon_image_description">Some chat</string>
+    <string name="send_image_description">Send your message</string>
 
     <string name="sign_up">Sign up</string>
     <string name="login">Login</string>
     <string name="enter_email">Enter email</string>
     <string name="enter_username">Enter username</string>
     <string name="enter_password">Enter password</string>
+    <string name="enter_message">Enter your писюлька</string>
     <string name="continue_button">Continue</string>
     <string name="is_new_user">New user?</string>
 
